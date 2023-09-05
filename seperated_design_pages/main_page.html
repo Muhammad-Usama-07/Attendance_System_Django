@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Menu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .side-menu {
+            width: 250px;
+            background-color: #59B900;
+            color: #fff;
+            position: fixed;
+            height: 100%;
+            overflow: hidden;
+            transition: width 0.5s;
+        }
+
+        .side-menu:hover {
+            width: 250px; /* Adjust the width to your preference */
+        }
+
+        .menu-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 150px;
+            padding: 20px 0;
+        }
+
+        .menu-header img {
+            max-width: 150px;
+            border-radius: 50%;
+        }
+
+        .student-name {
+            margin-top: 21px;
+            font-size: 20px;
+        }
+
+        .line {
+            width: 80%;
+            height: 2px;
+            border-bottom: 2px solid #ffffff;
+            margin: 21px auto;
+        }
+
+        .menu-options {
+            padding: 20px;
+            margin-top: 58px;
+        }
+
+        .menu-option {
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .menu-icon {
+            font-size: 30px; /* Adjust icon size */
+            margin-bottom: 5px; /* Add space between icon and text */
+        }
+
+        .menu-option:hover {
+            color: #555; /* Change the color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="side-menu">
+        <div class="menu-header">
+            <img src="boy-face-avatar-cartoon-free-vector.jpg" alt="Profile Picture">
+            <div class="student-name">John Doe</div>
+            <div class="line"></div>
+        </div>
+        <div class="menu-options">
+            <div class="menu-option">
+                <span class="menu-icon">&#x1F4C4;</span> 
+                Dashboard
+            </div>
+            <div class="menu-option">
+                <span class="menu-icon">&#x1F4D6;</span> 
+                Courses
+            </div>
+            <div class="menu-option">
+                <span class="menu-icon">&#x1F4DD;</span> 
+                Notes
+            </div>
+            <div class="menu-option">
+                <span class="menu-icon">&#x1F4CA;</span> 
+                Performance
+            </div>
+        </div>
+    </div>
+
+    <!-- Content goes here -->
+</body>
+</html>
