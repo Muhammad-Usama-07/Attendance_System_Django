@@ -72,6 +72,10 @@
         .menu-option:hover {
             color: #555; /* Change the color on hover */
         }
+        .menu-option {
+            text-decoration: none;
+            color: #fff; /* Inherit the text color from parent */
+        }
     </style>
 </head>
 <body>
@@ -82,22 +86,22 @@
             <div class="line"></div>
         </div>
         <div class="menu-options">
-            <div class="menu-option">
+            <a href="dashboard.html" class="menu-option">
                 <span class="menu-icon">&#x1F4C4;</span> 
                 Dashboard
-            </div>
-            <div class="menu-option">
+            </a>
+            <a href="courses.html" class="menu-option">
                 <span class="menu-icon">&#x1F4D6;</span> 
                 Courses
-            </div>
-            <div class="menu-option">
+            </a>
+            <a href="notes.html" class="menu-option">
                 <span class="menu-icon">&#x1F4DD;</span> 
                 Notes
-            </div>
-            <div class="menu-option">
+            </a>
+            <a href="performance.html" class="menu-option">
                 <span class="menu-icon">&#x1F4CA;</span> 
                 Performance
-            </div>
+            </a>
         </div>
     </div>
 
