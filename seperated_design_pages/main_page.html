@@ -97,15 +97,33 @@
             color: #fff;
             cursor: pointer;
         }
-        
+        /* Styles for the main content area */
+        .content {
+            margin-left: 270px; /* Width of the side menu */
+            padding-top: 22px; /* Height of the navigation bar */
+            display: flex; /* Display children side by side */
+            flex-wrap: wrap; /* Allow wrapping to next row on smaller screens */
+            gap: 20px; /* Space between containers */
+            justify-content: space-between; /* Distribute containers evenly */
+        }
+
+        /* Styles for the graph containers */
+        .graph-container {
+            width: calc(50% - 10px); /* Two containers in a row with 10px gap */
+            background-color: #f0f0f0; /* Background color for graphs */
+            padding: 20px; /* Adjust padding as needed */
+            border-radius: 10px; /* Rounded corners */
+        }
+
     </style>
+    
 </head>
 <body>
     <!-- Top Navigation Bar -->
     <div class="navbar">
         <h1>Your Website Name</h1>
         <a href="your-link-url.html">
-        <img src="user-interface.png" alt="Navigation Icon" width="35" height="35">
+        <img src="login_icon.png" alt="Navigation Icon" width="35" height="35">
     </a>
     </div>
     <div class="side-menu">
@@ -134,6 +152,72 @@
         </div>
     </div>
 
-    <!-- Content goes here -->
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Graph Container 1 -->
+        <div class="graph-container">
+            <!-- Your graph content goes here -->
+            Graph 1
+            <canvas id="graph1"></canvas>
+        </div>
+
+        <!-- Graph Container 2 -->
+        <div class="graph-container">
+            <!-- Your graph content goes here -->
+            Graph 2
+            <canvas id="graph2"></canvas>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Dummy data for the graphs
+        var dataGraph1 = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+            datasets: [{
+                label: 'Data 1',
+                data: [10, 20, 15, 25, 30],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Background color
+                borderColor: 'rgba(75, 192, 192, 1)', // Border color
+                borderWidth: 1 // Border width
+            }]
+        };
+    
+        var dataGraph2 = {
+            labels: ['A', 'B', 'C', 'D', 'E'],
+            datasets: [{
+                label: 'Data 2',
+                data: [5, 8, 12, 6, 10],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)', // Background color
+                borderColor: 'rgba(255, 99, 132, 1)', // Border color
+                borderWidth: 1 // Border width
+            }]
+        };
+    
+        // Configuration options for the graphs
+        var options = {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+    
+        // Create the graphs
+        var ctx1 = document.getElementById('graph1').getContext('2d');
+        var chart1 = new Chart(ctx1, {
+            type: 'bar', // Change to 'line' for a line chart
+            data: dataGraph1,
+            options: options
+        });
+    
+        var ctx2 = document.getElementById('graph2').getContext('2d');
+        var chart2 = new Chart(ctx2, {
+            type: 'line', // Change to 'bar' for a bar chart
+            data: dataGraph2,
+            options: options
+        });
+    </script>
+    
 </body>
 </html>
