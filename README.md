@@ -1,4 +1,4 @@
-# Attendance_System_Django
+# Attendance System Django
 
 ## Working on attendance system that will build in django
 
