@@ -158,27 +158,24 @@
         </div>
     </div>
 
+
     <!-- Main Content -->
     <div class="container content">
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-12 mb-4">
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4">
             <div class="row mb-4">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-              class="img-fluid rounded-4 shadow-2-strong"
-              alt="Hollywood Sign on The Hill"
-            />
+                Graph 1
+                <canvas id="graph1" class="graph-canvas"></canvas>
+            </div>
+        
+            <div class="row mb-4">
+                Graph 2
+                <canvas id="graph2" class="graph-canvas"></canvas>
+            </div>
         </div>
-        <div class="row mb-4">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-              class="img-fluid rounded-4 shadow-2-strong"
-              alt="Hollywood Sign on The Hill"
-            />
-        </div>
-          </div>
-      </div>
+    </div>
     
+    <!-- JavaScript code for the graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Dummy data for the graphs
@@ -192,7 +189,7 @@
                 borderWidth: 1 // Border width
             }]
         };
-    
+
         var dataGraph2 = {
             labels: ['A', 'B', 'C', 'D', 'E'],
             datasets: [{
@@ -203,7 +200,7 @@
                 borderWidth: 1 // Border width
             }]
         };
-    
+
         // Configuration options for the graphs
         var options = {
             scales: {
@@ -212,7 +209,7 @@
                 }
             }
         };
-    
+
         // Create the graphs
         var ctx1 = document.getElementById('graph1').getContext('2d');
         var chart1 = new Chart(ctx1, {
@@ -220,7 +217,7 @@
             data: dataGraph1,
             options: options
         });
-    
+
         var ctx2 = document.getElementById('graph2').getContext('2d');
         var chart2 = new Chart(ctx2, {
             type: 'line', // Change to 'bar' for a bar chart
