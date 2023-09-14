@@ -121,6 +121,39 @@
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Box shadow effect */
         }
+
+        /*  ***************** news section **************** */
+        .news-section {
+            width: 500px; /* Adjust the width as needed */
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow: hidden; /* Hide overflowing content */
+            margin-left: 30px;
+        }
+
+        /* Styles for the news container */
+        .news-container {
+            max-height: 300px; /* Set a maximum height for scrolling */
+            overflow-y: scroll; /* Enable vertical scrolling */
+        }
+
+        /* Styles for the news list */
+        .news-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .news-container li {
+            margin-bottom: 10px;
+        }
+
+/*  ***************** news section **************** */
+
+        .graphcss {
+            background-color: #dad5d5;
+        }
+
     </style>
     
 </head>
@@ -162,15 +195,49 @@
     <!-- Main Content -->
     <div class="container content">
         <!--Grid column-->
-        <div class="col-lg-4 col-md-12 mb-4">
-            <div class="row mb-4">
+        <div class="col-lg-6 mb-4">
+            <div class=" graphcss row mb-4">
                 Graph 1
                 <canvas id="graph1" class="graph-canvas"></canvas>
             </div>
         
-            <div class="row mb-4">
+            <div class=" graphcss row mb-4">
                 Graph 2
                 <canvas id="graph2" class="graph-canvas"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-5 col-lg-6 mb-4">
+            <div class="row lg-5 mb-4">
+                <div class="news-section">
+                    <h2>Latest News</h2>
+                    <div class="news-container">
+                        <ul>
+                            <li>News 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>News 2: Nullam eget libero a erat maximus rhoncus.</li>
+                            <li>News 3: Fusce non tortor in elit hendrerit fermentum.</li>
+                            <li>News 4: Integer nec odio ut mi sollicitudin congue.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+            
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+            
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+            
+                            <li>News 5: Sed euismod augue nec lorem laoreet varius.</li>
+            
+                            <!-- Add more news items as needed -->
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
