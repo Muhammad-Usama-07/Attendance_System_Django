@@ -103,7 +103,7 @@
         }
         /* Styles for the main content area */
         .content {
-            margin-left: 260px; /* Width of the side menu */
+            /* Width of the side menu */
             padding-top: 22px; /* Height of the navigation bar */
             display: flex; /* Display children side by side */
             flex-wrap: wrap; /* Allow wrapping to next row on smaller screens */
@@ -116,7 +116,7 @@
             width: 30%; /* Two containers in a row with 10px gap */
             background-color: #ffffff; /* Background color for graphs */
             padding: 20px; /* Adjust padding as needed */
-            margin-left: 10px;
+            /* margin-left: 10px; */
             margin-top: 10px;
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Box shadow effect */
@@ -128,7 +128,9 @@
             border: 1px solid #ccc;
             padding: 10px;
             overflow: hidden; /* Hide overflowing content */
-            margin-left: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px; 
+            /* margin-left: 30px; */
         }
 
         /* Styles for the news container */
@@ -152,6 +154,8 @@
 
         .graphcss {
             background-color: #dad5d5;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px; 
         }
 
     </style>
@@ -195,19 +199,19 @@
     <!-- Main Content -->
     <div class="container content">
         <!--Grid column-->
-        <div class="col-lg-6 mb-4">
-            <div class=" graphcss row mb-4">
+        <div class="graph_col col-lg-6 mb-4">
+            <div class=" graphcss row ml-4 mb-4 mt-4">
                 Graph 1
                 <canvas id="graph1" class="graph-canvas"></canvas>
             </div>
         
-            <div class=" graphcss row mb-4">
+            <div class=" graphcss row ml-4 mb-4 mt-4">
                 Graph 2
                 <canvas id="graph2" class="graph-canvas"></canvas>
             </div>
         </div>
         <div class="col-lg-5 col-lg-6 mb-4">
-            <div class="row lg-5 mb-4">
+            <div class="row lg-5 ml-4 mb-4 mt-4">
                 <div class="news-section">
                     <h2>Latest News</h2>
                     <div class="news-container">
