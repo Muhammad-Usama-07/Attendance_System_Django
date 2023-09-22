@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Include Plotly JavaScript -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Dashboard Work</h1>
+
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <h1>Plotly Graph</h1>
+    <div id="plot">{{ plot_div|safe }}</div>
+    <br>
+
+
+    <a href="{% url 'courses' %}">courses</a>
+    <a href="{% url 'notes' %}">notes</a>
+    <a href="{% url 'performance' %}">performance</a>
+</body>
+</html>
