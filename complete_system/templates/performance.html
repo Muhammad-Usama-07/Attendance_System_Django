@@ -1,16 +1,665 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Performance</title>
-</head>
-<body>
-    <h1>Performance Page Work</h1>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <a href="{% url 'dashboard' %}">Dashboard</a>
-    <a href="{% url 'courses' %}">courses</a>
-    <a href="{% url 'notes' %}">notes</a>
-    <a href="{% url 'performance' %}">performance</a>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif, sans-serif;
+            /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, sans-serif; */
+            /* font-family: 'Roboto Condensed', sans-serif; */
+            background-color: #e8fafa;
+        }
+
+        .side-menu {
+            width: 250px;
+            background-color: #59B900;
+            color: #fff;
+            position: fixed;
+            height: 100%;
+            overflow: hidden;
+            transition: width 0.5s;
+            top: 0;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            /* Box shadow effect */
+        }
+
+        .side-menu:hover {
+            width: 250px;
+            /* Adjust the width to your preference */
+        }
+
+        .menu-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 150px;
+            padding: 20px 0;
+        }
+
+        .menu-header img {
+            max-width: 150px;
+            border-radius: 50%;
+        }
+
+        .student-name {
+            margin-top: 21px;
+            font-size: 20px;
+        }
+
+        .line {
+            width: 80%;
+            height: 2px;
+            border-bottom: 2px solid #ffffff;
+            margin: 21px auto;
+        }
+
+        .menu-options {
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        .menu-option {
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            /* Adjust icon size */
+            margin-bottom: 5px;
+            /* Add space between icon and text */
+            margin-top: 5%;
+        }
+
+        .menu-option:hover {
+            color: #555;
+            /* Change the color on hover */
+        }
+
+        .menu-option {
+            text-decoration: none;
+            color: #fff;
+            /* Inherit the text color from parent */
+        }
+
+        /* Styles for the top navigation bar */
+        .navbar {
+            background-color: #D0E800;
+            color: #000000;
+            font-family: 'Aclonica', sans-serif;
+            /* margin-left: 240px; */
+            /* display: flex; */
+            /* justify-content: space-between; */
+            /* align-items: center; */
+            /* padding: 10px 20px; */
+            /* margin-left: 250px; */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            /* Box shadow effect */
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        .left-cus {
+            padding-left: 250px;
+
+        }
+
+        .login-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Styles for the main content area */
+        .content123 {
+            /* Width of the side menu */
+            padding-top: 22px;
+            /* Height of the navigation bar */
+            display: flex;
+            /* Display children side by side */
+            flex-wrap: wrap;
+            /* Allow wrapping to next row on smaller screens */
+            /* gap: 20px; Space between containers */
+            justify-content: space-between;
+            /* Distribute containers evenly */
+        }
+
+        /* Styles for the graph containers */
+        .graph-container {
+            width: 30%;
+            /* Two containers in a row with 10px gap */
+            background-color: #ffffff;
+            /* Background color for graphs */
+            padding: 20px;
+            /* Adjust padding as needed */
+            /* margin-left: 10px; */
+            margin-top: 10px;
+            border-radius: 10px;
+            /* Rounded corners */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            /* Box shadow effect */
+        }
+
+        /*  ***************** news section **************** */
+        .news-section {
+            /* width: 500px; */
+            /* Adjust the width as needed */
+            border: 1px solid #ccc;
+            padding: 10px;
+            /* overflow: hidden; */
+            /* Hide overflowing content */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            background-color: #fff;
+            /* margin-left: 30px; */
+        }
+
+        /* Styles for the news container */
+        .news-container {
+            max-height: 460px;
+            /* Set a maximum height for scrolling */
+            overflow-y: scroll;
+            /* Enable vertical scrolling */
+        }
+
+        /* Styles for the news list */
+        .news-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .news-container li {
+            /* margin-bottom: 10px; */
+            margin: 10px 5px;
+            background-color: #dad5d5;
+            padding: 5px 10px;
+            margin-right: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 40px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            /* box-shadow: inset 0 0 5px grey; */
+            border: 1px solid #000;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #59B900;
+            border-radius: 10px;
+        }
+
+
+        /*  ***************** news section **************** */
+
+        .graphcss1 {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 13px 5px 40px 16px;
+            /* width: 500px; */
+            max-height: 285px;
+
+        }
+
+        .graphcss2 {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            /* width: 500px; */
+            max-height: 220px;
+
+        }
+
+        .graph_col {
+            margin-left: 260px;
+            font-size: 20px;
+        }
+
+        .gradient-line {
+            width: 100%;
+            height: 1px;
+            /* Adjust the height as needed */
+            background: linear-gradient(to right, black, #ffffff);
+        }
+
+        .grades {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .grades li {
+            margin: 10px 5px;
+            background-color: #dad5d5;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 900;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .grades li .cus {
+            margin: -5px 0px;
+            border-radius: 0 5px 5px 0;
+            margin-left: -10px;
+            margin-right: -10px;
+            padding: 5px;
+            color: rgb(255, 255, 255);
+            background-color: #59B900;
+        }
+
+        .font-900 {
+            font-weight: 900;
+            font-size: 20px;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .row {
+            margin: 0px !important;
+        }
+
+        .overall-performance {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 5% / 10%;
+            padding: 15px;
+            margin: 30px 10px 0px 5px;
+            height: 250px;
+        }
+
+        .skill-gain {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 30px 10px 0px 5px;
+            height: 250px;
+        }
+
+        /* Style for the range slider */
+        .slider {
+            appearance: none;
+            width: 100%;
+            height: 2px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff 0%, #fff 100%);
+        }
+
+        /* Style for the filled part of the slider */
+        /* .slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #007BFF 0%, #007BFF 100%);
+        } */
+
+        .questioning-bar {
+            /* background: linear-gradient(to right, #dad5d5 0%, #dad5d5 50%, #007bff 50%, #7ebdff 100%); */
+            background: linear-gradient(to right, #7ebdff 0%, #007bff 40%, #dad5d5 40%, #dad5d5 100%);
+        }
+
+        .speaking-bar {
+            background: linear-gradient(to right, #ff7eee 0%, #ff00dd 30%, #dad5d5 30%, #dad5d5 100%);
+        }
+
+        .communication-bar {
+            background: linear-gradient(to right, #e17eff 0%, #ae00ff 20%, #dad5d5 20%, #dad5d5 100%);
+        }
+
+        .knowledge-bar {
+            background: linear-gradient(to right, #aa5478 0%, #b9002e 10%, #dad5d5 10%, #dad5d5 100%);
+        }
+
+        /* Slider Thumb */
+        .questioning-bar::-webkit-slider-thumb {
+            background: #007bff;
+        }
+
+        .speaking-bar::-webkit-slider-thumb {
+            background: #ff00dd;
+        }
+
+        .communication-bar::-webkit-slider-thumb {
+            background: #ae00ff;
+        }
+
+        .knowledge-bar::-webkit-slider-thumb {
+            background: #b9002e;
+        }
+
+
+
+        /* Style for the thumb (slider handle) */
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 7px;
+            height: 10px;
+            border-radius: 50%;
+            /* background: #007BFF; */
+            cursor: pointer;
+        }
+
+        table {
+            font-size: 15px;
+            width: 100%;
+            border-collapse: collapse;
+            /* Optional: Collapse borders between table cells */
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: middle;
+            /* border-bottom: 1px solid #ddd; Optional: Add a bottom border to table rows */
+        }
+
+        /* Make the first and second columns adjust to content */
+        td:first-child,
+        td:nth-child(2) {
+            width: auto;
+        }
+
+        /* Make the third column expand to fill remaining space */
+        td:nth-child(3) {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid p-0">
+        <div class="row p-0">
+            <!-- Top Navigation Bar -->
+            <div class="col p-0">
+                <div class="navbar">
+                    <h1 class="left-cus">Student Progress</h1>
+                    <a href="your-link-url.html">
+                        {% load static %}
+              <img
+                src="{% static 'assets/icons/login_icon.png' %}"
+                alt="Navigation Icon"
+                width="35"
+                height="35"
+              />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="side-menu">
+            <div class="menu-header">
+                {% load static %}
+                <img
+                    src="{% static 'assets/images/boy-face-avatar-cartoon-free-vector.jpg' %}"
+                    alt="Profile Picture"
+                />
+                <div class="student-name">John Doe</div>
+                <div class="line"></div>
+            </div>
+            <div class="menu-options">
+                <a href="/dashboard" class="menu-option">
+                    <span class="menu-icon">&#x1F4C4;</span>
+                    Dashboard
+                </a>
+                <a href="courses.html" class="menu-option">
+                    <span class="menu-icon">&#x1F4D6;</span>
+                    Courses
+                </a>
+                <a href="notes.html" class="menu-option">
+                    <span class="menu-icon">&#x1F4DD;</span>
+                    Notes
+                </a>
+                <a href="/performance" class="menu-option">
+                    <span class="menu-icon">&#x1F4CA;</span>
+                    Performance
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col graph_col">
+            <div class="row">
+                <div class="col overall-performance">
+                    <div class="row">
+                        <p class="font-900">Overall Performance</p>
+                        <div class="gradient-line"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eius eveniet laudantium
+                            iusto, ea maxime repellendus! Tempora sunt delectus eos! Repellendus quos non quae alias
+                            voluptatum cupiditate veritatis ad vel!
+                        </div>
+                        <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam veniam esse
+                            ipsum, adipisci, quibusdam, minus quo blanditiis tenetur nostrum enim nulla eos. Magni
+                            dignissimos tempore officiis repudiandae voluptatem soluta deleniti.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col skill-gain">
+                    <p class="font-900">Skills Gain</p>
+                    <div class="gradient-line"></div>
+                    <table>
+                        <tr>
+                            <td>Questioning</td>
+                            <td><span id="questioningMarks">40</span></td>
+                            <td>
+                                <input type="range" min="0" max="100" value="40" class="slider questioning-bar"
+                                    id="questioningRange">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Speaking</td>
+                            <td><span id="speakingMarks">30</span></td>
+                            <td>
+                                <input type="range" min="0" max="100" value="30" class="slider speaking-bar"
+                                    id="speakingRange">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Communication</td>
+                            <td><span id="communicationMarks">20</span></td>
+                            <td>
+                                <input type="range" min="0" max="100" value="20" class="slider communication-bar"
+                                    id="communicationRange">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Knowledge</td>
+                            <td><span id="knowledgeMarks">25</span></td>
+                            <td>
+                                <input type="range" min="0" max="100" value="10" class="slider knowledge-bar"
+                                    id="knowledgeRange">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col skill-gain">
+                    <p class="font-900">Future Prediction</p>
+                    <div class="gradient-line">
+                        <canvas id="lineChart" width="400" height="160"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script>
+        // Sample data for the gradient line chart (grades and years)
+        var years = [0, 1, 2, 3, 4, 5, 6, 7];
+        var grades = [60, 77, 79, 72, 72, 79, 76, 79]; // Adjust the values as needed
+    
+        // Get the canvas element
+        var ctx = document.getElementById('lineChart').getContext('2d');
+    
+        // Define the gradient colors
+        var gradient = ctx.createLinearGradient(0, 0, 400, 0);
+        gradient.addColorStop(0, '#ffcb6d'); // Left side color
+        gradient.addColorStop(1, '#ff0052');    // Right side color
+    
+        // Create the gradient line chart
+        var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years, // X-axis labels (years)
+                datasets: [{
+                    label: 'Grades',
+                    data: grades, // Y-axis data (grades)
+                    borderColor: gradient, // Gradient line color
+                    borderWidth: 2,       // Line width
+                    fill: false,           // Do not fill area under the line
+                    pointStyle: 'circle', // Customize the point style (e.g., circle, triangle)
+                    pointRadius: 5, // Adjust the size of the data points as needed
+                    pointBackgroundColor: gradient // Change the color of the data points
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false // Remove grid lines on the x-axis
+                        },
+                        title: {
+                            display: true,
+                            text: 'Year',
+                            color: 'black' // Color of the axis title
+                        },
+                        ticks: {
+                            color: 'black' // Color of the labels on the x-axis
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false // Remove grid lines on the y-axis
+                        },
+                        title: {
+                            display: true,
+                            text: 'Grade',
+                            color: 'black' // Color of the axis title
+                        },
+                        ticks: {
+                            color: 'black', // Color of the labels on the y-axis
+                            stepSize: 10
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'left' // You can adjust the legend position
+                    }
+                }
+            }
+        });
+    </script>
+    
+    <script>
+
+        // Get the range slider element
+        var questioningRange = document.getElementById("questioningRange");
+        // Update the background color of the slider based on its value
+        questioningRange.addEventListener("input", function () {
+            var value = (questioningRange.value - questioningRange.min) / (questioningRange.max - questioningRange.min) * 100;
+            var fill = "linear-gradient(to right, #7ebcff 0%, #007BFF " + value + "%, #dad5d5 " + value + "%, #dad5d5 100%)";
+            questioningRange.style.background = fill;
+        });
+        var speakingRange = document.getElementById("speakingRange");
+        // Update the background color of the slider based on its value
+        speakingRange.addEventListener("input", function () {
+            var value = (speakingRange.value - speakingRange.min) / (speakingRange.max - speakingRange.min) * 100;
+            var fill = "linear-gradient(to right, #ff7eee 0%, #ff00dd " + value + "%, #dad5d5 " + value + "%, #dad5d5 100%)";
+            speakingRange.style.background = fill;
+        });
+        var communicationRange = document.getElementById("communicationRange");
+        // Update the background color of the slider based on its value
+        communicationRange.addEventListener("input", function () {
+            var value = (communicationRange.value - communicationRange.min) / (communicationRange.max - communicationRange.min) * 100;
+            var fill = "linear-gradient(to right, #e17eff 0%, #ae00ff " + value + "%, #dad5d5 " + value + "%, #dad5d5 100%)";
+            // this.style.background = 'linear-gradient(to left, #ffffff 0%, #ffffff ' + value + '%, #ae00ff ' + value + '%, #e17eff 100%';
+            communicationRange.style.background = fill;
+        });
+        var knowledgeRange = document.getElementById("knowledgeRange");
+        // Update the background color of the slider based on its value
+        knowledgeRange.addEventListener("input", function () {
+            var value = (knowledgeRange.value - knowledgeRange.min) / (knowledgeRange.max - knowledgeRange.min) * 100;
+            var fill = "linear-gradient(to right, #aa5478 0%, #b9002e " + value + "%, #dad5d5 " + value + "%, #dad5d5 100%)";
+            // this.style.background = 'linear-gradient(to left, #ffffff 0%, #ffffff ' + value + '%, #b9002e ' + value + '%, #aa5478 100%';
+            knowledgeRange.style.background = fill;
+        });
+
+
+
+        // Function to set the slider position based on the provided value
+        function setSliderPosition(sliderId, value) {
+            var slider = document.getElementById(sliderId);
+            slider.value = value;
+        }
+
+        // Get the values from Django and set the slider positions
+        var questioningValue = 40; // Replace with Django value
+        var speakingValue = 30; // Replace with Django value
+        var communicationValue = 20; // Replace with Django value
+        var knowledgeValue = 10; // Replace with Django value
+
+        setSliderPosition("questioningRange", questioningValue);
+        setSliderPosition("speakingRange", speakingValue);
+        setSliderPosition("communicationRange", communicationValue);
+        setSliderPosition("knowledgeRange", knowledgeValue);
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
